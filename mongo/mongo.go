@@ -3,6 +3,7 @@ package mongo
 import (
 	"errors"
 	"hash/fnv"
+	"os"
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -76,7 +77,7 @@ func GetAllTeams() ([]Team, error) {
 }
 
 func connect() (*mgo.Session, error) {
-	session, err := mgo.Dial("mongodb://admin:password1@ds059135.mlab.com:59135/nfl")
+	session, err := mgo.Dial(os.Getenv("MONGO_KEY"))
 	if err == nil {
 		session.SetMode(mgo.Monotonic, true)
 	}
